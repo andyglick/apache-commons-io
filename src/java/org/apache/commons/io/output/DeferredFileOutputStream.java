@@ -21,6 +21,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.nio.file.Files;
 
 import org.apache.commons.io.IOUtils;
 
@@ -160,7 +161,7 @@ public class DeferredFileOutputStream
     protected void thresholdReached() throws IOException
     {
         if (prefix != null) {
-            outputFile = File.createTempFile(prefix, suffix, directory);
+            outputFile = Files.createTempFile(directory.toPath(), prefix, suffix).toFile();
         }
         FileOutputStream fos = new FileOutputStream(outputFile);
         memoryOutputStream.writeTo(fos);
